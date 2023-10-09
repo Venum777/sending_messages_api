@@ -23,6 +23,19 @@ class MessageViewSet(viewsets.ViewSet):
         *args: tuple,
         **kwargs: dict
     ) -> Response:
+        search = request.query_params.get('srch', None)
+        filter_message = request.query_params.get('filt', None)
+
+        if search is not None:
+            self.queryset = self.queryset.filter(
+                recipient__contains=search
+            )
+        if filter_message is not None:
+            if 'max' in filter_message:
+                self.queryset = self.queryset.order_by('-how_many_messages')
+            else:
+                self.queryset = self.queryset.order_by('how_many_messages')
+
         serializer: MessageSerializer = MessageSerializer(
             instance=self.queryset, many=True
         )
