@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, filters
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.validators import ValidationError
@@ -71,3 +71,4 @@ class MessageViewSet(viewsets.ViewSet):
                 "message": f"Message is created! Id: {message.pk}"
             }
         )
+

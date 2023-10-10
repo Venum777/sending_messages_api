@@ -11,7 +11,9 @@ class MyUserManager(BaseUserManager):
 
     def create_user(
         self,
+        username: str,
         email: str,
+        phone_number: str,
         password: str
     ) -> 'MyCustomUser':
 
@@ -19,7 +21,9 @@ class MyUserManager(BaseUserManager):
             raise ValidationError('Email required')
 
         custom_user: 'MyCustomUser' = self.model(
+            username=username,
             email=self.normalize_email(email),
+            phone_number=phone_number,
             password=password
         )
         custom_user.set_password(password)
