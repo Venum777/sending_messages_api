@@ -1,14 +1,22 @@
+# Django
 from django.shortcuts import render
+
+# DjangoDRF
 from rest_framework import viewsets, filters
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.validators import ValidationError
+from rest_framework.permissions import (
+    IsAuthenticated
+)
 
+# Local
 from main.models import Messages
 from main.serializers import(
     MessageSerializer, 
     MessageCreateSerializer
 ) 
+
 
 class MessageViewSet(viewsets.ViewSet):
     """
@@ -16,7 +24,8 @@ class MessageViewSet(viewsets.ViewSet):
     """
 
     queryset = Messages.objects.all()
-
+    permission_classes = [IsAuthenticated]
+    
     def list(
         self,
         request: Request,
